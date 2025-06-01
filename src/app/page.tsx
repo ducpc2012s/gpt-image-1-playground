@@ -10,6 +10,7 @@ import { calculateApiCost, type CostDetails } from '@/lib/cost-utils';
 import { db, type ImageRecord } from '@/lib/db';
 import { useLiveQuery } from 'dexie-react-hooks';
 import * as React from 'react';
+import { ArchitectureRenderBlock } from '@/components/architecture-render-block';
 
 type HistoryImage = {
     filename: string;
@@ -586,7 +587,7 @@ export default function HomePage() {
     };
 
     return (
-        <main className='flex min-h-screen flex-col items-center bg-black p-4 text-white md:p-8 lg:p-12'>
+        <main className='flex min-h-screen flex-col items-center p-4 text-white md:p-8 lg:p-12'>
             <PasswordDialog
                 isOpen={isPasswordDialogOpen}
                 onOpenChange={setIsPasswordDialogOpen}
@@ -600,7 +601,7 @@ export default function HomePage() {
             />
             <div className='w-full max-w-7xl space-y-6'>
                 <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
-                    <div className='relative flex h-[70vh] min-h-[600px] flex-col lg:col-span-1'>
+                    <div className='relative flex flex-col lg:col-span-1'>
                         <div className={mode === 'generate' ? 'block h-full w-full' : 'hidden'}>
                             <GenerationForm
                                 onSubmit={handleApiCall}
@@ -666,8 +667,9 @@ export default function HomePage() {
                                 setEditMaskPreviewUrl={setEditMaskPreviewUrl}
                             />
                         </div>
+                        <ArchitectureRenderBlock />
                     </div>
-                    <div className='flex h-[70vh] min-h-[600px] flex-col lg:col-span-1'>
+                    <div className='flex flex-col lg:col-span-1'>
                         {error && (
                             <Alert variant='destructive' className='mb-4 border-red-500/50 bg-red-900/20 text-red-300'>
                                 <AlertTitle className='text-red-200'>Error</AlertTitle>
@@ -686,7 +688,6 @@ export default function HomePage() {
                         />
                     </div>
                 </div>
-
                 <div className='min-h-[450px]'>
                     <HistoryPanel
                         history={history}
